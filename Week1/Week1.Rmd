@@ -2,7 +2,10 @@
 title: "Week1"
 author: "Puneeth"
 date: "January 19, 2019"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
