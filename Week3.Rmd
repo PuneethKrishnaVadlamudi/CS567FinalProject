@@ -1,0 +1,63 @@
+---
+title: "Week3"
+author: "Puneeth"
+date: "February 2, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.Read in the data
+
+```{r}
+populationDF <- read.csv('population.csv')
+  print(populationDF)
+
+```
+
+2.Create vector from columns
+
+```{r}
+populationMade <- populationDF[,6]
+populationAttempt <- populationDF[,7]
+print(populationMade)
+print(populationAttempt)
+
+
+```
+
+3.Find the mean Using a for loop and seq_along of populationMade
+
+```{r}
+total <- 0
+x <- 0
+for(i in seq_along(populationMade)){
+  total <- total + populationMade[i]
+  x <- x + 1
+}
+populationMade <- total / x
+print(populationMade)
+```
+
+4.Create a function
+
+```{r}
+mean2 <- function(y){
+  totalsum <<- totalsum + y
+  elements <<- elements + 1
+}
+```
+
+5.Using lapply
+```{r}
+totalsum <<- 0
+elements <<- 0
+lapply(populationAttempt,mean2)
+averagepopulationAttempt <- totalsum / elements
+print(averagepopulationAttempt)
+
+
+```
+
