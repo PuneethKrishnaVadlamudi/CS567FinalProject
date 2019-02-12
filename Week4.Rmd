@@ -1,0 +1,21 @@
+---
+title: "Week4"
+author: "Puneeth"
+date: "February 11, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rvest)
+
+urlfile <- read_html("https://basketball.realgm.com/nba/individual-seasons")
+BestIndividual <- html_table(urlfile)
+
+df<-data.frame(BestIndividual)
+df
+```
+
