@@ -1,0 +1,53 @@
+---
+title: "Week5"
+author: "Puneeth"
+date: "February 11, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("eeptools")
+
+library(rvest)
+library(dplyr)
+library(lubridate)
+library(eeptools)
+
+
+urlfile <- read_html("https://en.wikipedia.org/wiki/Wikipedia:Database_reports/Birthday_today")
+BestIndividual <- html_table(urlfile)
+
+df<-data.frame(BestIndividual)[[1]]
+
+d2 <- Sys.Date()
+
+J <- as.data.frame(BestIndividual) %>%
+  mutate(
+    present = d2
+ )
+J
+
+J$Born <- as.Date(J$Born)
+J$present <- as.Date(J$present)
+
+J$Age <- age_calc(J$Born,J$present, units = "years") 
+J$Age <- as.integer(J$Age)
+J
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
