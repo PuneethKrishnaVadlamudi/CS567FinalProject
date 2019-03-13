@@ -1,0 +1,37 @@
+---
+title: "Week7"
+author: "Puneeth"
+date: "March 6, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("ggplot2")
+library(rvest)
+library(ggplot2)
+
+
+urlfile <- read_html("http://carsalesbase.com/us-car-sales-data/acura/")
+carmodel <- html_table(urlfile, header=TRUE)[[2]]
+colnames(carmodel)[1] <- "Year"
+df<-data.frame(carmodel)
+df
+```
+
+```{r}
+ggplot(df, aes(x=Year, y=Acura..All.Models)) +
+   geom_point(shape=1)      
+
+
+
+ggplot(df, aes(x=Year, y=Acura..All.Models)) +
+    geom_point(shape=1) +   
+    geom_smooth(method=lm, formula = y ~ x + I(x^2), size=1)  
+
+
+```
+
