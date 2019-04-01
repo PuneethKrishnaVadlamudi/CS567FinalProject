@@ -1,0 +1,17 @@
+---
+title: "FinalProject1"
+author: "Puneeth"
+date: "March 31, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+populationDF <- read.csv('Employee_Compensation.csv')
+  print(populationDF)
+
+```
+
