@@ -9,9 +9,31 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+
+This data is from " https://github.com/fivethirtyeight/data/tree/master/trump-approval-ratings "
+Question :- how is the approval percentage growth for every pollster and since first poll?
+
 ```{r}
-populationDF <- read.csv('Employee_Compensation.csv')
-  print(populationDF)
+J <- read.csv('approval_polllist.csv')
+  print(J)
+  
+
+J$EarlyDate <- J[1,4]
+J
+
+J$EarlyDate <- as.Date(J$EarlyDate, format = "%m/%d/%Y")
+J$startdate <- as.Date(J$startdate, format = "%m/%d/%Y")
+J
+
+J$daysSinceFirstPoll = difftime(J[[4]], J[[23]], units = "days")
+J
+
+J$total <- J$approve + J$disapprove
+J
+
+J$approvalPercentage <- J$approve / J$total
+J
 
 ```
 
