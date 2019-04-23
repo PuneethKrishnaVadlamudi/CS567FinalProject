@@ -26,7 +26,7 @@ J$EarlyDate <- as.Date(J$EarlyDate, format = "%m/%d/%Y")
 J$startdate <- as.Date(J$startdate, format = "%m/%d/%Y")
 J
 
-J$daysSinceFirstPoll = difftime(J[[4]], J[[23]], units = "days")
+J$daysSinceFirstPoll = difftime(J$startdate, J$EarlyDate, units = "days")
 J
 
 J$total <- J$approve + J$disapprove
@@ -35,5 +35,85 @@ J
 J$approvalPercentage <- J$approve / J$total
 J
 
+
+
+
 ```
+
+
+First Model
+```{r}
+library(rvest)
+library(ggplot2)
+library(cluster)
+
+fit <- lm(approvalPercentage ~ daysSinceFirstPoll, data = J)
+summary(fit)
+
+J$predicted <- predict(fit)   
+J$residuals <- residuals(fit) 
+J
+
+ggplot(J, aes(x = daysSinceFirstPoll, y = approvalPercentage)) +
+  geom_point() +
+  geom_point(aes(y = predicted), shape = 1)
+
+
+ggplot(J, aes(x = daysSinceFirstPoll, y = residuals)) +
+  geom_point() +
+  geom_segment(aes(xend = daysSinceFirstPoll, yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+```
+
+
+
+Second Model
+```{r}
+library(rvest)
+library(ggplot2)
+library(cluster)
+
+fitter <- lm(approvalPercentage ~ daysSinceFirstPoll + samplesize, data = J)
+summary(fitter)
+
+J$predicted <- predict(fitter)   
+J$residuals <- residuals(fitter) 
+J
+
+ggplot(J, aes(x = daysSinceFirstPoll + samplesize, y = approvalPercentage)) +
+  geom_point() +
+  geom_point(aes(y = predicted), shape = 1)
+
+ggplot(J, aes(x = daysSinceFirstPoll, y = residuals, color=samplesize)) +
+  geom_point() +
+  geom_segment(aes(xend = daysSinceFirstPoll , yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+```
+
+
+
+
+Third Model and this the best model among all models as it has Adjusted R-squared maximum.
+```{r}
+library(rvest)
+library(ggplot2)
+library(cluster)
+
+fittest <- lm(approvalPercentage ~ daysSinceFirstPoll + samplesize + factor(pollster), data = J)
+summary(fittest)
+
+J$predicted <- predict(fittest)   
+J$residuals <- residuals(fittest) 
+J
+
+ggplot(J, aes(x = daysSinceFirstPoll, y = approvalPercentage)) +
+  geom_point() +
+  geom_point(aes(y = predicted), shape = 1)
+
+graph <- ggplot(J, aes(x = daysSinceFirstPoll , y = residuals, color=pollster))  +
+  geom_point() +
+  geom_segment(aes(xend = daysSinceFirstPoll , yend = 0), alpha = .2) + geom_hline(yintercept = 0)
+graph
+
+```
+
+
 
