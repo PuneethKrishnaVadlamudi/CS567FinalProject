@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 This data is from " https://github.com/fivethirtyeight/data/tree/master/trump-approval-ratings "
-Question :- how is the approval percentage growth for every pollster and since first poll?
+Question :- how is the approval percentage growth for every pollster and since first poll? and any pollster are biased?
 
 ```{r}
 J <- read.csv('approval_polllist.csv')
@@ -41,7 +41,7 @@ J
 ```
 
 
-First Model
+First Model. The interpretation of these coefficients is that if you hold everything else in the model constant that is daysSinceFirstPoll and then the estimated mean approvalPercentage will decrease.
 ```{r}
 library(rvest)
 library(ggplot2)
@@ -66,7 +66,7 @@ ggplot(J, aes(x = daysSinceFirstPoll, y = residuals)) +
 
 
 
-Second Model
+Second Model. similar to the interpretation of first model coefficients if you hold everything else in the model constant that is samplesize and then the estimated mean approvalPercentage will decrease.
 ```{r}
 library(rvest)
 library(ggplot2)
@@ -91,7 +91,7 @@ ggplot(J, aes(x = daysSinceFirstPoll, y = residuals, color=samplesize)) +
 
 
 
-Third Model and this the best model among all models as it has Adjusted R-squared maximum.
+Third Model and this the best model among all models as it has Adjusted R-squared maximum. The interpretation of these coefficients in this model depends upon each pollsters estimate value changes high or low wrt intercept value. If you see both daysSinceFirstPoll, samplesize are more decreasing depending on the scale.
 ```{r}
 library(rvest)
 library(ggplot2)
