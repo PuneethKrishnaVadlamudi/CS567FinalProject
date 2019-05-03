@@ -34,7 +34,7 @@ shinyServer(function(input, output) {
     ggplot(J, aes(x = daysSinceFirstPoll, y = residuals)) +
       geom_point(colour = "black")  +
       geom_segment(aes(xend = daysSinceFirstPoll, yend = 0), alpha = .01) + geom_hline(yintercept = 0) 
-    + geom_point(aes(x=days(), y = 0), colour = "green")
+    + geom_point(aes(x=days(), y = 0), colour = "red")
 
      )
   
