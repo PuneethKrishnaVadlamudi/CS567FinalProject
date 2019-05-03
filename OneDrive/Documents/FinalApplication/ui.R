@@ -45,8 +45,10 @@ shinyUI(fluidPage(
     mainPanel(
        plotOutput("plot1"),
        h3("Predicted apporval percentage from Model 1 :"),
-       textOutput("pred1")
-
+       textOutput("pred1"),
+       h3("Information About Data :"),
+       textOutput("Data")
+       
        
     )
   )

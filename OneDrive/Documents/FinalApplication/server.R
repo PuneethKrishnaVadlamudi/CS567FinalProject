@@ -12,6 +12,7 @@ library(ggplot2)
 
 
 shinyServer(function(input, output) {
+  
    model1 <- lm(approvalPercentage ~ daysSinceFirstPoll+ samplesize+ factor(pollster), data = J) # data J is from finalproject1.rmd
   
   model1pred <- reactive({
@@ -28,6 +29,8 @@ shinyServer(function(input, output) {
   days <- reactive({
     daysInput <- input$SliderDays
   })
+  
+ 
     
   output$plot1 <- renderPlot(
     
@@ -41,7 +44,21 @@ shinyServer(function(input, output) {
  output$pred1 <- renderText({
         model1pred()
   })    
-  
+ output$Data <- renderText({
+   "
+ This data(source code) is from https://github.com/fivethirtyeight/data/tree/master/trump-approval-ratings
+ The data is all about polls taken by different pollster at different time intervals about president trump goverenances and it tells
+ approval percentage for that poll since earliest day of the poll started to the end of that poll(daysSincefirstpoll) and sample size 
+ is the number of people that polled. Sample size differs according to the poll and  pollster taken. 
+
+ The question we worked on - Are the polls Baised (depending on the pollster??) and how does it effect on approval percentage means 
+ does it increase or decrease for different polls by different pollster ?
+
+ Seeing the summary of the best model we can get approvalPercentage = .04 + .000001 * daysSinceFirstPoll - 0.0000004 * samplesize
+ from that Coefficients value (formula above)it is clear that number of dayssincefirstpoll increases then there is slightly growth in 
+ approvalPercentage and sample size increases then percentage goes down slightly. We have selected pollster has Gallup and observed the 
+ result of apporval precentage residual plot and its Predicted apporval percentage for it." 
+ })  
   
    
     })
